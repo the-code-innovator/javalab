@@ -55,12 +55,15 @@ public class PointOps{
 		boolean enter = true;
 		// boolean showHelp = false;
 		while(enter){
+			// String[] arguments;
+			// String help = new String("help");
 			// if(!showHelp){
 				System.out.print("POINT $ ");
 				String command = in.nextLine().toLowerCase();
 				String[] arguments = command.split(" ", 0);
 			// }
 			// else{
+				// help = new String("help");
 				// System.out.println("POINT $ help");
 				// String[] arguments = new String[1];
 			// 	if(showHelp) arguments[0] = new String("help");
@@ -69,6 +72,8 @@ public class PointOps{
 			// String command = s.nextLine().toLowerCase();
 			// String[] arguments = command.split(" ", 0);
 			switch(arguments[0]){
+			//showHelp?help:
+			// switch(showHelp?help:arguments[0])
 				case "addpoint":
 					set.add(new Point(Double.parseDouble(arguments[1]), Double.parseDouble(arguments[2])));
 					break;
@@ -100,7 +105,8 @@ public class PointOps{
 					// showHelp = false;
 					break;
 				default:
-					System.out.println("\nwrong command !\nSYNTAX : ${command} <options>\nhere is the list of commands");
+					System.out.println("\nWrong Command !\nSYNTAX : ${command} <options>\nhere is the list of commands");
+					// showHelp = true;
 					System.out.println("HELP :\n 1. addpoint - adds a point given as parameter into the set.\n 2. distance - finds the distance between consecutive elements of the set.\n 3. sortset - sorts the set and outputs the result.\n 4. exit - exits the program.\n 5. help - displays this help menu.\ndefault: shows help menu.");
 					break;
 			}
