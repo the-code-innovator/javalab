@@ -40,8 +40,8 @@ public class ArrayList_String{
 			words.add(s.next());
 		}
 		System.out.println(reverse(words));
-		// System.out.println(removePlurals(words));
-		// System.out.println(captalizePlurals(words));
+		System.out.println(removePlurals(words));
+		System.out.println(captalizePlurals(words));
 		System.out.println(words);
 	}
 }
