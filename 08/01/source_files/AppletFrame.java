@@ -1,51 +1,46 @@
 import java.awt.*;
 import java.awt.event.*;
+import java.applet.*;
 
-class MyFrame extends Frame{
-	MyFrame(){
+/*
+		<applet code="AppletFrame" height=400 width=600>
+		</applet>
+ */
 
+public class AppletFrame extends Applet implements FocusListener, MouseMovementListener, ActionListener{
+	// Called first.
+	Button B1;
+	Button B2;
+	Label L1;
+	public void init() {
+		// initialization
+		B1 = new Button("OK");
+		B2 = new Button("QUIT");
+		L1 = new Label("Applet Started");
+	}
+	/* Called second, after init().
+	 * Also called whenever the applet is restarted.
+	 */
+	public void start() {
+		// start or resume execution
+	}
+	// Called when the applet is stopped.
+	public void stop() {
+		// suspends execution
+	}
+	/* Called when applet is terminated.
+	 * This is the last method executed.
+	 */
+	public void destroy() {
+		// perform shutdown activities
+	}
+	// Called when an applet’s window must be restored.
+	public void paint(Graphics g) {
+		// redisplay contents of window
 	}
 }
-//
-//
-// import java.awt.*;
-// import java.awt.event.*;
-//
-//
-// class AWT  extends Frame{
-// 	AWT(){
-// 		Label lbl = new Label("Jaikanth Jay's AWT");
-// 		Button btn = new Button("Click Me");
-// 		btn.addActionListener( new ActionListener(){
-// 			public void actionPerformed(ActionEvent e){
-// 				lbl.setText("Button Clicked!");
-// 			}
-// 		});
-//
-// 		Button btnQuit = new Button("QUIT");
-// 		btnQuit.addActionListener( new ActionListener(){
-// 			public void actionPerformed(ActionEvent e){
-// 				System.exit(0);
-// 			}
-// 		});
-// 		add(lbl);
-// 		add(btn);
-// 		add(btnQuit);
-// 		setSize(300,300);
-// 		setLayout(new FlowLayout());
-// 		setVisible(true);
-// 		setTitle("AWT Program");
-// 	}
-// }
-//
-// public class  Ex8{
-// 	public static void main(String[] args){
-// 		AWT a = new AWT();
-// 	}
-// }
 
-public class AppletFrame{
-	public static void main(String[] args){
-
-	}
-}
+/*
+ * <param name="width" value=600>
+ * <param name="height" value=400>
+ */
