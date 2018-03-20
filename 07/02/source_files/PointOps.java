@@ -50,7 +50,7 @@ class Point{
 
 public class PointOps{
 	public static void main(String[] args){
-		HashSet<Point> set = new HashSet<Point>(10);
+		HashSet<Point> set = new HashSet<Point>();
 		Scanner in = new Scanner(System.in);
 		boolean enter = true;
 		// boolean showHelp = false;
@@ -78,23 +78,39 @@ public class PointOps{
 					set.add(new Point(Double.parseDouble(arguments[1]), Double.parseDouble(arguments[2])));
 					break;
 				case "distance":
-					Iterator<Point> hi = set.iterator();
-					Point first = hi.next();
-					while(hi.hasNext()){
-						Point next = hi.next();
-						double distance = first.findDistance(next);
-						System.out.println("Distance Between " + first + " & " + next + " = " + distance);
-						first = next;
+					// Iterator<Point> hi = set.iterator();
+					// Point first = hi.next();
+					// while(hi.hasNext()){
+					// 	Point next = hi.next();
+					// 	double distance = first.findDistance(next);
+					// 	System.out.println("Distance Between " + first + " & " + next + " = " + distance);
+					// 	first = next;
+					// }
+					// break;
+					ArrayList<Point> pointList = new ArrayList<Point>(set);
+					System.out.println("Points :");
+					for(int i = 0; i < pointList.size(); i++){
+						System.out.println("( " + (i + 1) + " ) : " + pointList.get(i));
 					}
+					for(int i = 0; i < pointList.size(); i++)
+						for(int j = i + 1; j < pointList.size(); j++){
+							System.out.print("Distance Between : " +
+							pointList.get(i) + " & " +
+							pointList.get(j) + " = " + pointList.get(i).findDistance(pointList.get(j)) + "\n");
+						}
 					break;
 				case "sortset":
 					ArrayList<Point> list = new ArrayList<Point>(set);
 					Collections.sort(list, new Point.PointComparator());
 					// Collections.sort(list, new PointComparator());
-					Iterator i = list.iterator();
+					Point first;
+					int counter = 1;
+					Iterator<Point> i = list.iterator();
+					// Point first = i.next();
 					while(i.hasNext()){
-						first = (Point)i.next();
-						first.displayPoint();
+						first = i.next();
+						System.out.println("( " + (counter) + " ) : " + first);
+						counter++;
 					}
 					break;
 				case "exit":
