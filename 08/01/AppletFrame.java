@@ -7,35 +7,20 @@ import java.applet.*;
 		</applet>
  */
 
-// class AppletFrame extends Frame{
-// 	public Button B1;
-// 	public Label L1;
-// 	public AppletFrame(){
-// 		B1 = new Button("OK");
-// 		L1 = new
-// 		B1.addActionListener(new ActionEvent(){
-// 			public void actionPerformed(ActionEvent ae){
-// 				set
-// 			}
-// 		});
-// 	}
-// 	public void paint(){
-//
-// 	}
-// }
-
-public class AppletFrame extends Applet{
+public class AppletFrame extends Applet implements ActionListener{
 	// Called first.
 	Button B1;
 	// Button B2;
 	// Label L1;
 	public void init() {
 		// initialization
+		this.setLayout(null);
 		B1 = new Button("OK");
 		// B2 = new Button("QUIT");
 		// L1 = new Label("Applet Started");
 		B1.setBounds(100, 150, 100, 50);
 		// setStatus("NEW APPLET");
+		B1.addActionListener(this);
 		add(B1);
 		// add(B2);
 		// add(L1);
@@ -64,5 +49,11 @@ public class AppletFrame extends Applet{
 		// g.add(B2);
 		// g.add(L1);
 		showStatus("THIS IS STATUS!");
+	}
+
+
+	public void actionPerformed(ActionEvent ae){
+		// System.out.print("Button was clicked");
+		showStatus("B1 was Clicked !");
 	}
 }
