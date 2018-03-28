@@ -6,7 +6,6 @@ import java.applet.*;
 		<applet code="AppletFrame" height=300 width=300>
 		</applet>
  */
-
 public class AppletFrame extends Applet implements ActionListener{
 	// Called first.
 	Button B1;
@@ -50,8 +49,6 @@ public class AppletFrame extends Applet implements ActionListener{
 		// g.add(L1);
 		showStatus("THIS IS STATUS!");
 	}
-
-
 	public void actionPerformed(ActionEvent ae){
 		// System.out.print("Button was clicked");
 		showStatus("B1 was Clicked !");
