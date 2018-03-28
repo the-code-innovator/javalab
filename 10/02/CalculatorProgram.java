@@ -127,22 +127,9 @@ class Calculator extends Frame implements ActionListener{
 	}
 }
 
-public class CalculatorProgram extends Applet{
-	Calculator a;
-	public void init(){
-		a = new Calculator();
-	}
-	public void start(){
-
-	}
-	public void stop(){
-
-	}
-	public void paint(){
-
-	}
-	public void destroy(){
-
+public class CalculatorProgram{
+	public static void main(String[] args) {
+		Calculator a = new Calculator();
 	}
 }
 

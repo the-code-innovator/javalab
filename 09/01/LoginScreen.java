@@ -97,24 +97,8 @@ class Auth extends Frame{
 
 
 public  class LoginScreen extends Applet{
-	// public static void main(String[] args) {
-		Auth a;
-	// }
-
-	public void init(){
-		a = new Auth();
-	}
-	public void start(){
-
-	}
-	public void stop(){
-
-	}
-	public void paint(){
-
-	}
-	public void destroy(){
-
+	public static void main(String[] args) {
+		Auth a = new Auth();
 	}
 }
 
