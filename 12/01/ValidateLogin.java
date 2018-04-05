@@ -1,26 +1,47 @@
 import java.awt.*;
 import java.awt.event.*;
 import java.applet.*;
+import java.sql.*;
+//import com.mysql.jdbc.Driver;
 
 /*
-	<applet code = "LoginScreen" width = 360 height = 180>
+	<applet code = "ValidateLogin" width = 360 height = 180>
 	</applet>
 */
 
-public  class LoginScreen extends Applet implements ActionListener, FocusListener{
+public  class ValidateLogin extends Applet implements ActionListener, FocusListener{
+	// Buttons
 	Button okayButton;
 	Button resetButton;
 	Button cancelButton;
+
+	// Text Fields
 	TextField usernameField;
 	TextField passwordField;
+
+	// Labels
 	Label usernameLabel;
 	Label passwordLabel;
 	Label titleLabel;
+
+	// Fonts
 	Font innerFont;
 	Font outerFont;
 	Font titleFont;
+
+	// Input Strings
 	String username;
 	String password;
+
+	// validate boolean
+	public boolean validate;
+
+	// SQL objects
+	Connection connection;
+	Statement statement;
+	ResultSet resultset;
+
+	// initialisation
 	public void init(){
 		this.setLayout(null);
 		this.okayButton = new Button("OK");
@@ -42,7 +63,7 @@ public  class LoginScreen extends Applet implements ActionListener, FocusListene
 		this.titleLabel.setFont(this.titleFont);
 		this.usernameField.setFont(this.innerFont);
 		this.passwordField.setFont(this.innerFont);
-		this.passwordField.setEchoChar('•');
+		this.passwordField.setEchoChar('•');					// U+2022
 		this.titleLabel.setBounds(0, 10, 360, 30);
 		this.titleLabel.setAlignment(Label.CENTER);
 		this.usernameLabel.setBounds(20, 60, 160, 20);
@@ -60,9 +81,12 @@ public  class LoginScreen extends Applet implements ActionListener, FocusListene
 		add(this.cancelButton);
 		add(this.resetButton);
 		add(this.okayButton);
-		this.username = new String("aravind");
-		this.password = new String("root");
+		this.username = new String("");
+		this.password = new String("");
+		this.validate = false;
 	}
+
+	// start method
 	public void start(){
 		okayButton.addActionListener(this);
 		resetButton.addActionListener(this);
@@ -70,27 +94,45 @@ public  class LoginScreen extends Applet implements ActionListener, FocusListene
 		usernameField.addFocusListener(this);
 		passwordField.addFocusListener(this);
 	}
+
+	// actionPerformed method for ActionListener
 	public void actionPerformed(ActionEvent ae){
 		if(ae.getSource() == this.okayButton){
-			if(usernameField.getText().equals(username) && passwordField.getText().equals(password)){
-				showStatus("Login Successful");
+			this.username = usernameField.getText();
+			this.password = passwordField.getText();
+			try{
+				checkLogin(this.username, this.password);
+			}
+			catch(Exception e){
+				System.out.println(e);
+			}
+			if(this.validate){
+				showStatus("Login LoginScreen.validated using Database !");
 			}
 			else{
-				showStatus("Invalid Username (or) Password ! Please Try Again !");
+				showStatus("Invalid Username (or) Password !");
 			}
 		}
 		else if(ae.getSource() == this.resetButton){
 			usernameField.setText("Enter Username");
 			passwordField.setText("********");
 			showStatus("Login Aborted !");
+			this.username = new String("");
+			this.password = new String("");
+			this.validate = false;
 		}
 		else if(ae.getSource() == this.cancelButton){
 			usernameField.setText("");
 			passwordField.setText("");
 			showStatus("Login Cancelled !");
+			this.username = new String("");
+			this.password = new String("");
+			this.validate = false;
 		}
 		else{}
 	}
+
+	// focusGained method for FocusListener
 	public void focusGained(FocusEvent fe){
 		if(fe.getSource() == this.usernameField){
 			usernameField.setText("");
@@ -102,8 +144,31 @@ public  class LoginScreen extends Applet implements ActionListener, FocusListene
 		}
 		else{}
 	}
+
+	// focusLost method for FocusListener
 	public void focusLost(FocusEvent fe){}
-	// public void stop(){}
-	// public void destroy(){}
-	// public void paint(Graphics graphic){}
+
+  public void checkLogin(String username, String password) throws SQLException{
+		this.validate = false;
+		String databaseUsername;
+		String databasePassword;
+		try{
+			Class.forName("com.mysql.jdbc.Driver");
+			this.connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/jdbc?useSSL=false","root","123456");
+			this.statement = connection.createStatement();
+			this.resultset = statement.executeQuery("select * from credential");
+			while(this.resultset.next()){
+				databaseUsername = new String(resultset.getString(1));
+				databasePassword = new String(resultset.getString(2));
+				if(username.equals(databaseUsername) && password.equals(databasePassword)){
+					this.validate = true;
+					break;
+				}
+				// System.out.println(resultset.getInt(1) + "  " + resultset.getString(2));
+			}
+		}
+		catch(Exception e){
+			System.out.println(e);
+		}
+	}
 }
