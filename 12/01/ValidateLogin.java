@@ -2,12 +2,12 @@ import java.awt.*;
 import java.awt.event.*;
 import java.applet.*;
 import java.sql.*;
-//import com.mysql.jdbc.Driver;
+// import com.mysql.jdbc.Driver;
+// import org.gjt.mm.mysql.Driver;
+import java.lang.*;
 
-/*
-	<applet code = "ValidateLogin" width = 360 height = 180>
-	</applet>
-*/
+	// <applet code = "ValidateLogin" width = 360 height = 180>
+	// </applet>
 
 public  class ValidateLogin extends Applet implements ActionListener, FocusListener{
 	// Buttons
@@ -30,8 +30,8 @@ public  class ValidateLogin extends Applet implements ActionListener, FocusListe
 	Font titleFont;
 
 	// Input Strings
-	String username;
-	String password;
+	// String username;
+	// String password;
 
 	// validate boolean
 	public boolean validate;
@@ -81,9 +81,22 @@ public  class ValidateLogin extends Applet implements ActionListener, FocusListe
 		add(this.cancelButton);
 		add(this.resetButton);
 		add(this.okayButton);
-		this.username = new String("");
-		this.password = new String("");
+		// this.username = new String("");
+		// this.password = new String("");
 		this.validate = false;
+		// try{
+		// 	Class.forName("com.mysql.jdbc.Driver").newInstance();
+		// 	this.connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/jdbc","root","123456");
+		// }
+		// catch(Exception e){
+		// 	e.printStackTrace();
+		// }
+		try{
+			Class.forName("com.mysql.jdbc.Driver").newInstance();
+		}
+		catch(Exception c){
+			System.out.print(c);
+		}
 	}
 
 	// start method
@@ -93,21 +106,27 @@ public  class ValidateLogin extends Applet implements ActionListener, FocusListe
 		cancelButton.addActionListener(this);
 		usernameField.addFocusListener(this);
 		passwordField.addFocusListener(this);
+		// try{
+
+		// }
+		// catch(Exception e){
+			// e.printStackTrace();
+		// }
 	}
 
 	// actionPerformed method for ActionListener
 	public void actionPerformed(ActionEvent ae){
 		if(ae.getSource() == this.okayButton){
-			this.username = usernameField.getText();
-			this.password = passwordField.getText();
+			// this.username = usernameField.getText();
+			// this.password = passwordField.getText();
 			try{
-				checkLogin(this.username, this.password);
+				checkLogin(this.usernameField.getText(), this.passwordField.getText());
 			}
 			catch(Exception e){
 				System.out.println(e);
 			}
 			if(this.validate){
-				showStatus("Login LoginScreen.validated using Database !");
+				showStatus("Login Validated using Database !");
 			}
 			else{
 				showStatus("Invalid Username (or) Password !");
@@ -117,16 +136,16 @@ public  class ValidateLogin extends Applet implements ActionListener, FocusListe
 			usernameField.setText("Enter Username");
 			passwordField.setText("********");
 			showStatus("Login Aborted !");
-			this.username = new String("");
-			this.password = new String("");
+			// this.username = new String("");
+			// this.password = new String("");
 			this.validate = false;
 		}
 		else if(ae.getSource() == this.cancelButton){
 			usernameField.setText("");
 			passwordField.setText("");
 			showStatus("Login Cancelled !");
-			this.username = new String("");
-			this.password = new String("");
+			// this.username = new String("");
+			// this.password = new String("");
 			this.validate = false;
 		}
 		else{}
@@ -150,17 +169,15 @@ public  class ValidateLogin extends Applet implements ActionListener, FocusListe
 
   public void checkLogin(String username, String password) throws SQLException{
 		this.validate = false;
-		String databaseUsername;
-		String databasePassword;
+		// String databaseUsername;
+		// String databasePassword;
 		try{
-			Class.forName("com.mysql.jdbc.Driver");
+			Class.forName("com.mysql.jdbc.Driver").newInstance();
 			this.connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/jdbc?useSSL=false","root","123456");
 			this.statement = connection.createStatement();
 			this.resultset = statement.executeQuery("select * from credential");
 			while(this.resultset.next()){
-				databaseUsername = new String(resultset.getString(1));
-				databasePassword = new String(resultset.getString(2));
-				if(username.equals(databaseUsername) && password.equals(databasePassword)){
+				if(username.equals(new String(resultset.getString("username"))) && password.equals(new String(resultset.getString("password")))){
 					this.validate = true;
 					break;
 				}
