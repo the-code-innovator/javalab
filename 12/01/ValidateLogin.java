@@ -2,8 +2,6 @@ import java.awt.*;
 import java.awt.event.*;
 import java.applet.*;
 import java.sql.*;
-// import com.mysql.jdbc.Driver;
-// import org.gjt.mm.mysql.Driver;
 import java.lang.*;
 
 	// <applet code = "ValidateLogin" width = 360 height = 180>
