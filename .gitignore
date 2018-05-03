@@ -2,4 +2,7 @@
 .DS_Store
 *.txt
 *~
-META-INF
+java.sql.Driver
+INDEX.LIST
+MANIFEST.MF
+*.properties
