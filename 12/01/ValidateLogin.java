@@ -27,10 +27,6 @@ public  class ValidateLogin extends Applet implements ActionListener, FocusListe
 	Font outerFont;
 	Font titleFont;
 
-	// Input Strings
-	// String username;
-	// String password;
-
 	// validate boolean
 	public boolean validate;
 
@@ -79,16 +75,7 @@ public  class ValidateLogin extends Applet implements ActionListener, FocusListe
 		add(this.cancelButton);
 		add(this.resetButton);
 		add(this.okayButton);
-		// this.username = new String("");
-		// this.password = new String("");
 		this.validate = false;
-		// try{
-		// 	Class.forName("com.mysql.jdbc.Driver").newInstance();
-		// 	this.connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/jdbc","root","123456");
-		// }
-		// catch(Exception e){
-		// 	e.printStackTrace();
-		// }
 		try{
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
 		}
@@ -104,19 +91,11 @@ public  class ValidateLogin extends Applet implements ActionListener, FocusListe
 		cancelButton.addActionListener(this);
 		usernameField.addFocusListener(this);
 		passwordField.addFocusListener(this);
-		// try{
-
-		// }
-		// catch(Exception e){
-			// e.printStackTrace();
-		// }
 	}
 
 	// actionPerformed method for ActionListener
 	public void actionPerformed(ActionEvent ae){
 		if(ae.getSource() == this.okayButton){
-			// this.username = usernameField.getText();
-			// this.password = passwordField.getText();
 			try{
 				checkLogin(this.usernameField.getText(), this.passwordField.getText());
 			}
@@ -134,16 +113,12 @@ public  class ValidateLogin extends Applet implements ActionListener, FocusListe
 			usernameField.setText("Enter Username");
 			passwordField.setText("********");
 			showStatus("Login Aborted !");
-			// this.username = new String("");
-			// this.password = new String("");
 			this.validate = false;
 		}
 		else if(ae.getSource() == this.cancelButton){
 			usernameField.setText("");
 			passwordField.setText("");
 			showStatus("Login Cancelled !");
-			// this.username = new String("");
-			// this.password = new String("");
 			this.validate = false;
 		}
 		else{}
@@ -165,10 +140,9 @@ public  class ValidateLogin extends Applet implements ActionListener, FocusListe
 	// focusLost method for FocusListener
 	public void focusLost(FocusEvent fe){}
 
+  // checkLogin : method for checking the username and password
   public void checkLogin(String username, String password) throws SQLException{
 		this.validate = false;
-		// String databaseUsername;
-		// String databasePassword;
 		try{
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
 			this.connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/jdbc?useSSL=false","root","123456");
@@ -179,7 +153,6 @@ public  class ValidateLogin extends Applet implements ActionListener, FocusListe
 					this.validate = true;
 					break;
 				}
-				// System.out.println(resultset.getInt(1) + "  " + resultset.getString(2));
 			}
 		}
 		catch(Exception e){
